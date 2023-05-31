@@ -1,22 +1,26 @@
 package com.mirian.crm.restcontroller;
 
+import com.mirian.crm.exceptions.EmployeeIdNotFoundException;
 import com.mirian.crm.model.Employee;
-import com.mirian.crm.repository.EmployeeDAO;
-import com.mirian.crm.repository.EmployeeDAOImpl;
+import com.mirian.crm.model.EmployeeErrorResponse;
 import com.mirian.crm.service.EmployeeService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class EmployeeController {
+public class EmployeeRestController {
 
     private final EmployeeService employeeService;
 
     @Autowired
-    EmployeeController(EmployeeService employeeService) {
+    EmployeeRestController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
@@ -27,7 +31,10 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/{employeeId}")
-    public Employee getEmployee(@PathVariable int employeeId) {
+    public Employee getEmployeeById(@PathVariable int employeeId) {
+        if (employeeId >= employeeService.getAllEmployees().size() || employeeId < 0) {
+            throw new EmployeeIdNotFoundException("Employee id not found - " + employeeId);
+        }
         return employeeService.getEmployeeById(employeeId);
     }
 
@@ -47,6 +54,5 @@ public class EmployeeController {
     public void deleteEmployeeById(@PathVariable int employeeId) {
         employeeService.deleteEmployeeById(employeeId);
     }
-
 
 }
