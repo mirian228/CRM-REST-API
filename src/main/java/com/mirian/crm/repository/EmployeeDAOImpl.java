@@ -25,7 +25,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public List<Employee> getAllEmployees() {
-        return entityManager.createQuery("FROM employee", Employee.class).getResultList();
+        return entityManager.createQuery("FROM Employee", Employee.class).getResultList();
     }
 
     @Override
