@@ -5,10 +5,7 @@ import com.mirian.crm.repository.EmployeeDAO;
 import com.mirian.crm.repository.EmployeeDAOImpl;
 import com.mirian.crm.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,4 +30,23 @@ public class EmployeeController {
     public Employee getEmployee(@PathVariable int employeeId) {
         return employeeService.getEmployeeById(employeeId);
     }
+
+
+    @PutMapping("/employees")
+    public Employee updateEmployee(@RequestBody Employee employee) {
+        return employeeService.updateEmployee(employee);
+    }
+
+    @PostMapping("employees")
+    public void createEmployee(@RequestBody Employee employee) {
+        employeeService.createEmployee(employee);
+    }
+
+
+    @DeleteMapping("/employees/{employeeId}")
+    public void deleteEmployeeById(@PathVariable int employeeId) {
+        employeeService.deleteEmployeeById(employeeId);
+    }
+
+
 }
