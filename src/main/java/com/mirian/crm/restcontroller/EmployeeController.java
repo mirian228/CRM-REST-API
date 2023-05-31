@@ -4,6 +4,7 @@ import com.mirian.crm.model.Employee;
 import com.mirian.crm.repository.EmployeeDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,5 +25,9 @@ public class EmployeeController {
     @GetMapping("/employees")
     public List<Employee> getAllEmployees() {
         return employeeDAOImpl.getAllEmployees();
+    }
+    @GetMapping("/employees/{employeeId}")
+    public Employee getEmployee(@PathVariable int employeeId) {
+        return  employeeDAOImpl.getEmployeeById(employeeId);
     }
 }
