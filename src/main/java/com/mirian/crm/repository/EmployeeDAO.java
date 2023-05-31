@@ -8,11 +8,11 @@ public interface EmployeeDAO {
     Employee getEmployeeById(int employeeId);
     List<Employee> getAllEmployees();
 
-    void createEmployee();
+    void createEmployee(Employee employee);
 
-    void updateEmployee();
+    void updateEmployee(Employee employee);
 
-    void deleteEmployee();
+    void deleteEmployeeById(int employeeId);
 
 
 
