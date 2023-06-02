@@ -1,4 +1,4 @@
-package com.mirian.crm.repository;
+package com.mirian.crm.dao;
 
 import com.mirian.crm.model.Employee;
 

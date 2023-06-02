@@ -18,10 +18,22 @@ public class Employee {
     @Column(name = "email")
     private String email;
 
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
+    private Manager managerId;
+
     public Employee(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+
+    public Employee(String firstName, String lastName, String email, Manager managerId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.managerId = managerId;
     }
 
     public Employee() {
@@ -59,17 +71,25 @@ public class Employee {
         this.email = email;
     }
 
+    public Manager getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Manager managerId) {
+        this.managerId = managerId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return id == employee.id && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(email, employee.email);
+        return id == employee.id && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(email, employee.email) && Objects.equals(managerId, employee.managerId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email);
+        return Objects.hash(id, firstName, lastName, email, managerId);
     }
 
     @Override
@@ -79,6 +99,7 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", managerId=" + managerId +
                 '}';
     }
 }

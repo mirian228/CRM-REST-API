@@ -1,7 +1,9 @@
 package com.mirian.crm.service;
 
 import com.mirian.crm.model.Employee;
-import com.mirian.crm.repository.EmployeeDAO;
+import com.mirian.crm.dao.EmployeeDAO;
+import com.mirian.crm.model.Manager;
+import com.mirian.crm.repository.ManagerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,11 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeDAO employeeDAO;
+    private final ManagerRepository managerRepository;
 
-    EmployeeServiceImpl(EmployeeDAO employeeDAO) {
+    EmployeeServiceImpl(EmployeeDAO employeeDAO, ManagerRepository managerRepository) {
         this.employeeDAO = employeeDAO;
+        this.managerRepository = managerRepository;
     }
 
 
@@ -30,8 +34,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public Employee createEmployee(Employee employee) {
-        employeeDAO.createEmployee(employee);
-        return employee;
+        Integer managerId = employee.getManagerId().getId();
+        Manager manager = managerRepository.findById(managerId).get();
+        if(manager != null) {
+            employee.setManagerId(manager);
+            return employeeDAO.createEmployee(employee);
+        } else {
+            throw new RuntimeException("Manager not found");
+        }
     }
 
     @Override

@@ -1,7 +1,6 @@
-package com.mirian.crm.repository;
+package com.mirian.crm.dao;
 
 import com.mirian.crm.model.Employee;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
