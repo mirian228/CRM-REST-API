@@ -5,6 +5,7 @@ import com.mirian.crm.dao.EmployeeDAO;
 import com.mirian.crm.model.Manager;
 import com.mirian.crm.repository.ManagerRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeDAO employeeDAO;
     private final ManagerRepository managerRepository;
-
+    @Autowired
     EmployeeServiceImpl(EmployeeDAO employeeDAO, ManagerRepository managerRepository) {
         this.employeeDAO = employeeDAO;
         this.managerRepository = managerRepository;
