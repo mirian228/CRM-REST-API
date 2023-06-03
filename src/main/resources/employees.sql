@@ -73,3 +73,40 @@ ALTER table users change column password password char(68);
 UPDATE users SET password='{bcrypt}$2a$10$xtKOuARInc5E3AZFqf2dsOpiuoFh2CJDIBlSYIMPbqAnIqFKDPW/O' WHERE username='john';
 UPDATE users SET password='{bcrypt}$2a$10$XuTXQhqs8MKxPNYC9Ca1tOKDu1UrCFeBq.9Iu22H9CVy.8Ha/DHi2' WHERE username='mary';
 UPDATE users SET password='{bcrypt}$2a$10$tpgXhnrLLwHuvxe6JtePreBsj.XOmFNsaU8N.2k8Gybm3ywWPAwqu' WHERE username='susan';
+
+DROP Table authorities;
+
+DROP Table users;
+
+
+CREATE TABLE members (
+	user_id varchar(50) NOT NULL,
+    pw char(68) NOT NULL,
+    active tinyint NOT NULL,
+    
+	PRIMARY KEY(user_id)
+) Engine=InnoDB default charset=latin1;
+
+INSERT INTO members VALUES
+				('john', '{bcrypt}$2a$10$xtKOuARInc5E3AZFqf2dsOpiuoFh2CJDIBlSYIMPbqAnIqFKDPW/O', 1),
+                ('mary', '{bcrypt}$2a$10$XuTXQhqs8MKxPNYC9Ca1tOKDu1UrCFeBq.9Iu22H9CVy.8Ha/DHi2', 1),
+                ('susan', '{bcrypt}$2a$10$tpgXhnrLLwHuvxe6JtePreBsj.XOmFNsaU8N.2k8Gybm3ywWPAwqu', 1);
+
+CREATE Table roles (
+	user_id varchar(50) NOT NULL,
+	role varchar(50) NOT NULL,
+    
+    UNIQUE KEY authorities5_idx_1 (user_id, role),
+    
+    CONSTRAINT authorities5_ibfk_1
+    FOREIGN KEY (user_id) REFERENCES members(user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+INSERT INTO roles VALUES 
+('john', 'ROLE_EMPLOYEE'),
+('mary', 'ROLE_EMPLOYEE'),
+('mary', 'ROLE_MANAGER'),
+('susan', 'ROLE_EMPLOYEE'),
+('susan', 'ROLE_MANAGER'),
+('susan', 'ROLE_ADMIN');
