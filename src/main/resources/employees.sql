@@ -69,3 +69,7 @@ INSERT INTO authorities VALUES
 ('susan', 'ROLE_MANAGER'),
 ('susan', 'ROLE_ADMIN');
 
+ALTER table users change column password password char(68);
+UPDATE users SET password='{bcrypt}$2a$10$xtKOuARInc5E3AZFqf2dsOpiuoFh2CJDIBlSYIMPbqAnIqFKDPW/O' WHERE username='john';
+UPDATE users SET password='{bcrypt}$2a$10$XuTXQhqs8MKxPNYC9Ca1tOKDu1UrCFeBq.9Iu22H9CVy.8Ha/DHi2' WHERE username='mary';
+UPDATE users SET password='{bcrypt}$2a$10$tpgXhnrLLwHuvxe6JtePreBsj.XOmFNsaU8N.2k8Gybm3ywWPAwqu' WHERE username='susan';
